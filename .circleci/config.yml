@@ -21,6 +21,22 @@ jobs:
       - image: "bellkev/big:latest"
     steps:
       - run: echo hello
+  tweaked-ecr:
+    working_directory: "~"
+    docker:
+      - image: "544260304266.dkr.ecr.us-east-1.amazonaws.com/tweaked:latest"
+        aws_auth:
+          aws_access_key_id: $AWS_ID
+          aws_secret_access_key: $AWS_SECRET
+    steps:
+      - run: echo hello
+  tweaked-dockerhub:
+    working_directory: "~"
+    docker:
+      - image: "bellkev/tweaked:latest"
+    steps:
+      - run: echo hello
+
 workflows:
   version: 2
   run_all:
@@ -28,3 +44,5 @@ workflows:
       - vanilla
       - big-ecr
       - big-dockerhub
+      - tweaked-ecr
+      - tweaked-dockerhub
