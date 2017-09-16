@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  vanilla:
+    working_directory: "~"
+    docker:
+      - image: "circleci/ruby:2.4.1-node-browsers"
+    steps:
+      - run: echo hello
+  big-ecr:
+    working_directory: "~"
+    docker:
+      - image: "544260304266.dkr.ecr.us-east-1.amazonaws.com/big:latest"
+        aws_auth:
+          aws_access_key_id: $AWS_ID
+          aws_secret_access_key: $AWS_SECRET
+    steps:
+      - run: echo hello
+  big-dockerhub:
+    working_directory: "~"
+    docker:
+      - image: "bellkev/big:latest"
+    steps:
+      - run: echo hello
+workflows:
+  version: 2
+  run_all:
+    jobs:
+      - vanilla
+      - big-ecr
+      - big-dockerhub

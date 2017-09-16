@@ -1,0 +1,2 @@
+FROM circleci/ruby:2.4.1-node-browsers
+RUN echo foo > /home/circleci/foo.txt
